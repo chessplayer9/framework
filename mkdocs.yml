@@ -3,7 +3,7 @@ nav:
   - Get Started: 
     - Introduction: index.md
     - Quik Start: quik.md
-    - Reproduced Methods: method.md
+    - Reproduced Methods: methods.md
     - Results: results.md
   - Instructions:
     - Documentation: document.md

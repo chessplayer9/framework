@@ -2,6 +2,11 @@ site_name: OpenHAIV
 nav:
   - Get Started: 
     - Introduction: index.md
+    - Quik Start: quik.md
     - Reproduced Methods: method.md
     - Results: results.md
+  - Instructions:
+    - Documentation: document.md
+  - More Information:
+    - People: people.md
 theme: readthedocs

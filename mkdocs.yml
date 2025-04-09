@@ -1,0 +1,7 @@
+site_name: OpenHAIV
+nav:
+  - Get Started: 
+    - Introduction: index.md
+    - Reproduced Methods: method.md
+    - Results: results.md
+theme: readthedocs

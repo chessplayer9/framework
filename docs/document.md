@@ -1,4 +1,4 @@
-## OpenHAIV documentation
+## OpenHAIV Documentation
 
 The framework adopts a modular design overall, which is reflected in two key aspects:
 

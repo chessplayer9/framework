@@ -5,8 +5,15 @@ nav:
     - Quik Start: quik.md
     - Reproduced Methods: methods.md
     - Results: results.md
-  - Instructions:
-    - Documentation: document.md
+  - Documentation:
+    - Overview: overview.md
+    - config: config.md
+    - ncdia: ncdia.md
+    - scripts: scripts.md
   - More Information:
     - People: people.md
 theme: readthedocs
+extra_css:
+  - stylesheets/custom.css
+markdown_extensions:
+  - attr_list  # 允许为元素添加属性

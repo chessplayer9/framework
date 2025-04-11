@@ -1,14 +1,3 @@
-## OpenHAIV Documentation
-
-The framework adopts a modular design overall, which is reflected in two key aspects:
-
-- **Functionally**, it independently incorporates dedicated modules for supervised training, out-of-distribution detection, novel class discovery, and incremental learning. 
-- **Procedurally**, the framework divides its operational workflow into distinct stages, including data processing, model construction, training \& evaluation, and visualization.
-
-From an implementation perspective, the framework is built upon foundational deep learning, data processing, and visualization libraries such as PyTorch, NumPy, Matplotlib, and Pandas, leveraging their extensive built-in functionalities.
-
-![](images/pipeline.png)
-
 ### config
 
 #### config.algorithms
@@ -21,7 +10,23 @@ From an implementation perspective, the framework is built upon foundational dee
 
 ### ncdia
 
-#### ncdia.algorithms
+#### algorithms
+Includes incremental learning algorithms, new class discovery algorithms, and out-of-distribution detection algorithms, as well as supervised learning algorithms.
+
+##### ncd.autoncd.py
+Modules related to novel class discovery.
+
+###### AutoNCD (model, train_loader, test_loader, device=None, verbose=False)
+
+Class for novel class discovery.
+
+- **model**
+- **train_loader**
+- **test_loader**
+- **device**
+- **verbose**
+
+
 
 #### ncdia.dataloader
 

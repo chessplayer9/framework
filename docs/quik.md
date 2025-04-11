@@ -24,3 +24,18 @@ python setup.py install
 ## Run
 
 ### OOD
+
+
+Example: 
+```
+bash ./scripts/det_oes_rn18_msp.sh
+```
+
+
+
+### CIL
+Example:
+```
+bash ./scripts/inc_BM200_lwf.sh
+```
+

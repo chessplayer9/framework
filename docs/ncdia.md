@@ -573,9 +573,34 @@ Class inherits from **BaseAlg**. Standard supervised learning algorithm
 
 - <span class="highlight-text">**build_dataloader(kwargs)**</span>
 
+    Build data loader.
+
+    **Parameters:**
+
+    - **kwargs** (*dict*): Arguments for DataLoader. Contains the following:
+        - **dataset** (*dict*): Dataset configuration.
+        - other arguments for DataLoader, such as **batch_size**, **shuffle**, etc.
+
+    **Returns:**
+
+    - **loader** (*DataLoader*): Data loader.
+
+
 ### ncdia.dataloader.tools.py
 
+Implements some of the commonly used dataloaders
+
 ### ncdia.dataloader.datasets
+
+Implements some of the commonly used datasets, including:
+
+- **CIFAR100**
+- **CUB200**
+- **Caltech101**
+- **Food101**
+- **ImageNet**
+- **ImageNetR**
+- **BM200**
 
 ### ncdia.dataloader.augmentations
 

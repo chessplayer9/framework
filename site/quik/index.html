@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../stylesheets/custom.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -44,15 +45,27 @@
                   <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Quik Start</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#create-virtual-environment">create virtual environment</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#install-package">install package</a>
+    </li>
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../methods/">Reproduced Methods</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../results/">Results</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">Instructions</span></p>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../document/">Documentation</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">config</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ncdia/">ncdia</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../scripts/">scripts</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">More Information</span></p>
@@ -84,7 +97,34 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h2 id="install">Install</h2>
+<p>It is recommended to use anaconda3 to manage and maintain the python library environment.
+1. Download the .sh file from the anaconda3 website
+2. install anaconda3 with .sh file</p>
+<pre><code>bash Anaconda3-2023.03-Linux-x86_64.sh
+</code></pre>
+<h3 id="create-virtual-environment">create virtual environment</h3>
+<pre><code>conda create -n ncdia python=3.10 -y
+conda activate ncdia
+pip install -r requirements.txt
+python setup.py install
+</code></pre>
+<h3 id="install-package">install package</h3>
+<ul>
+<li>pytorch&gt;=1.12.0 torchvision&gt;=0.13.0 (recommand offical torch command)</li>
+<li>numpy&gt;=1.26.4</li>
+<li>scipy&gt;=1.14.0</li>
+<li>scikit-learn&gt;=1.5.1</li>
+</ul>
+<h2 id="run">Run</h2>
+<h3 id="ood">OOD</h3>
+<p>Example: </p>
+<pre><code>bash ./scripts/det_oes_rn18_msp.sh
+</code></pre>
+<h3 id="cil">CIL</h3>
+<p>Example:</p>
+<pre><code>bash ./scripts/inc_BM200_lwf.sh
+</code></pre>
               
             </div>
           </div><footer>

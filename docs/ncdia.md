@@ -569,6 +569,16 @@ Class inherits from **BaseAlg**. Standard supervised learning algorithm
 
 ## ncdia.dataloader
 
+### ncdia.dataloader.base.py
+
+- <span class="highlight-text">**build_dataloader(kwargs)**</span>
+
+### ncdia.dataloader.tools.py
+
+### ncdia.dataloader.datasets
+
+### ncdia.dataloader.augmentations
+
 ## ncdia.inference
 
 ## ncdia.model

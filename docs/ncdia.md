@@ -610,4 +610,156 @@ Implements some of the commonly used augmentation methods.
 
 ## ncdia.trainers
 
+### ncdia.trainers.base.py
+
+#### BaseTrainer
+
+Basic trainer class for training models.
+
+**Attributes:**
+
+- **model** (*nn.Module*): Neural network models.
+- **train_loader** (*DataLoader*): DataLoader for training.
+- **val_loader** (*DataLoader*): DataLoader for validation.
+- **test_loader** (*DataLoader*): DataLoader for testing.
+- **optimizer** (*Optimizer*): Optimizer.
+- **scheduler** (*lr_scheduler._LRScheduler*): Learning rate scheduler.
+- **criterion** (*Callable*): Criterion for training.
+- **algorithm** (*object*): Algorithm for training.
+- **metrics** (*dict*): Metrics for evaluation and testing.
+- **session** (*int*): Session number.
+- **max_epochs** (*int*): Total epochs for training.
+- **max_train_iters** (*int*): Iterations on one epoch for training.
+- **max_val_iters** (*int*): Iterations on one epoch for validation.
+- **max_test_iters** (*int*): Iterations on one epoch for testing.
+- **epoch** (*int*): Current training epoch.
+- **iter** (*int*): Current iteration or index of the current batch.
+- **cfg** (*Configs*): Configuration for trainer.
+- **hooks** (*List[Hook]*): List of registered hooks.
+- **logger** (*Logger*): Logger for logging information.
+- **device** (*torch.device*): Device to use.
+- **work_dir** (*str*): Working directory to save logs and checkpoints.
+- **exp_name** (*str*): Experiment name.
+- **load_from** (*str*): Checkpoint file path to load.
+
+**Methods:**
+
+- <span class="highlight-text">** \_\_init\_\_(self, cfg, session, model, train_loader, val_loader, test_loader, default_hooks, custom_hooks, load_from, exp_name, work_dir)**</span>
+
+    The constructor method that initializes an instance of **BaseTrainer**. 
+
+    **Parameters:**
+
+    - **cfg** (*dict, optional*): Configuration for trainer, Contains:
+        - **'trainer'** (*dict*):
+            - 'type' (*str*): Type of trainer.
+        - **'algorithm'** (*dict*):
+            - 'type' (*str*): Type of algorithm.
+        - **'criterion'** (*dict*):
+            - 'type' (*str*): Type of criterion for training.
+        - **'optimizer'**:
+            - 'type' (*str*): Name of optimizer.
+            - 'param_groups' (*dict | None*): If provided, directly optimize
+                param_groups and abandon model.
+            - kwargs (*dict*) for optimizer, such as 'lr', 'weight_decay', etc.
+        - **'scheduler'**:
+            - 'type' (*str*): Name of scheduler.
+            - kwargs (*dict*) for scheduler, such as 'step_size', 'gamma', etc.
+        - **'device' **(*str | torch.device | None*): Device to use.
+            If None, use 'cuda' if available.
+        - **'trainloader'**:
+            - 'dataset': 
+                - 'type' (*str*): Type of dataset.
+                - kwargs (*dict*) for dataset, such as 'root', 'split', etc.
+            - kwargs (*dict*) for DataLoader, such as 'batch_size', 'shuffle', etc.
+        - **'valloader'**:
+            - 'dataset': 
+                - 'type' (*str*): Type of dataset.
+                - kwargs (*dict*) for dataset, such as 'root', 'split', etc.
+            - kwargs (*dict*) for DataLoader, such as 'batch_size', 'shuffle', etc.
+        - **'testloader'**:
+            - 'dataset':
+                - 'type' (*str*): Type of dataset.
+                - kwargs (*dict*) for dataset, such as 'root', 'split', etc.
+            - kwargs (*dict*) for DataLoader, such as 'batch_size', 'shuffle', etc.
+        - **'exp_name'** (*str*): Experiment name.
+        - **'work_dir'** (*str*): Working directory to save logs and checkpoints.
+    - **session** (*int*): Session number. If == 0, execute pre-training.
+        If > 0, execute incremental training.
+    - **model** (*nn.Module*): Model to be trained.
+    - **train_loader** (*DataLoader | dict, optional*): DataLoader for training.
+    - **val_loader** (*DataLoader | dict, optional*): DataLoader for validation.
+    - **test_loader** (*DataLoader | dict, optional*): DataLoader for testing.
+    - **default_hooks** (*dict, optional*): Default hooks to be registered.
+    - **custom_hooks** (*list, optional*): Custom hooks to be registered.
+    - **load_from** (*str, optional*): Checkpoint file path to load.
+    - **work_dir** (*str, optional*): Working directory to save logs and checkpoints.
+
+
+- <span class="highlight-text">** cfg(self)**</span>
+
+- <span class="highlight-text">** hooks(self)**</span>
+
+- <span class="highlight-text">** logger(self)**</span>
+
+- <span class="highlight-text">** work_dir(self)**</span>
+
+- <span class="highlight-text">** session(self)**</span>
+
+- <span class="highlight-text">** model(self)**</span>
+
+- <span class="highlight-text">** train_loader(self)**</span>
+
+- <span class="highlight-text">** val_loader(self)**</span>
+
+- <span class="highlight-text">** test_loader(self)**</span>
+
+- <span class="highlight-text">** optimizer(self)**</span>
+
+- <span class="highlight-text">** scheduler(self)**</span>
+
+- <span class="highlight-text">** criterion(self)**</span>
+
+- <span class="highlight-text">** algorithm(self)**</span>
+
+- <span class="highlight-text">** metrics(self)**</span>
+
+- <span class="highlight-text">** max_epochs(self)**</span>
+
+- <span class="highlight-text">** max_train_iters(self)**</span>
+
+- <span class="highlight-text">** max_val_iters(self)**</span>
+
+- <span class="highlight-text">** max_test_iters(self)**</span>
+
+- <span class="highlight-text">** device(self)**</span>
+
+- <span class="highlight-text">** train_step(self, batch, **kwargs)**</span>
+
+- <span class="highlight-text">** val_step(self, batch, **kwargs)**</span>
+
+- <span class="highlight-text">** test_step(self, batch, **kwargs)**</span>
+
+- <span class="highlight-text">** train(self)**</span>
+
+- <span class="highlight-text">** val(self)**</span>
+
+- <span class="highlight-text">** test(self)**</span>
+
+- <span class="highlight-text">** load_ckpt(self, fpath, device='cpu')**</span>
+
+- <span class="highlight-text">** save_ckpt(self, fpath)**</span>
+
+- <span class="highlight-text">** call_hook(self, fn_name: str, **kwargs)**</span>
+
+- <span class="highlight-text">**register_hook(self, hook, priority=None)**</span>
+
+- <span class="highlight-text">** register_default_hooks(self, hooks=None)**</span>
+
+- <span class="highlight-text">** register_custom_hooks(self, hooks)**</span>
+
+- <span class="highlight-text">** register_hooks(self, default_hooks=None, custom_hooks=None)**</span>
+
+- <span class="highlight-text">**get_hooks_info(self)**</span>
+
 ## ncdia.utils

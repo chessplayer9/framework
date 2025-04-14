@@ -604,7 +604,7 @@ Implements some of the commonly used datasets, including:
 
 ### ncdia.dataloader.augmentations
 
-## ncdia.inference
+Implements some of the commonly used augmentation methods.
 
 ## ncdia.model
 

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>People - OpenHAIV</title>
+    <title>Overview - OpenHAIV</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "People";
-        var mkdocs_page_input_path = "people.md";
+        var mkdocs_page_name = "Overview";
+        var mkdocs_page_input_path = "overview.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -52,8 +52,10 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Documentation</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../overview/">Overview</a>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Overview</a>
+    <ul class="current">
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../config/">config</a>
                   </li>
@@ -63,8 +65,8 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">More Information</span></p>
-              <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">People</a>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../people/">People</a>
                   </li>
               </ul>
       </div>
@@ -81,8 +83,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">More Information</li>
-      <li class="breadcrumb-item active">People</li>
+          <li class="breadcrumb-item">Documentation</li>
+      <li class="breadcrumb-item active">Overview</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -91,12 +93,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="openhaiv-documentation">OpenHAIV Documentation</h1>
+<p>The framework adopts a modular design overall, which is reflected in two key aspects:</p>
+<ul>
+<li><strong>Functionally</strong>, it independently incorporates dedicated modules for supervised training, out-of-distribution detection, novel class discovery, and incremental learning. </li>
+<li><strong>Procedurally</strong>, the framework divides its operational workflow into distinct stages, including data processing, model construction, training \&amp; evaluation, and visualization.</li>
+</ul>
+<p>From an implementation perspective, the framework is built upon foundational deep learning, data processing, and visualization libraries such as PyTorch, NumPy, Matplotlib, and Pandas, leveraging their extensive built-in functionalities.</p>
+<p><img alt="" src="../images/pipeline.png" width="70%" /></p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../scripts/" class="btn btn-neutral float-left" title="scripts"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../results/" class="btn btn-neutral float-left" title="Results"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../config/" class="btn btn-neutral float-right" title="config">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -119,8 +129,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../scripts/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../results/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
+    
+      <span><a href="../config/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

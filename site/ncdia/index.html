@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>ncdia - OpenHAIV</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../stylesheets/custom.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ncdia";
+        var mkdocs_page_input_path = "ncdia.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> OpenHAIV
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Get Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quik/">Quik Start</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../methods/">Reproduced Methods</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../results/">Results</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">config</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">ncdia</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#ncdiaalgorithms">ncdia.algorithms</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ncdiaalgorithmsbasepy">ncdia.algorithms.base.py</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#basealg">BaseAlg</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ncdiaalgorithmsincremental">ncdia.algorithms.incremental</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ncdiaalgorithmsncdautoncdpy">ncdia.algorithms.ncd.autoncd.py</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#autoncd">AutoNCD</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ncdiaalgorithmsoodautooodpy">ncdia.algorithms.ood.autoood.py</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#autoood">AutoOOD</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ncdiaalgorithmsoodmethodspy">ncdia.algorithms.ood.methods.py</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ncdiaalgorithmsoodinferencepy">ncdia.algorithms.ood.inference.py</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ncdiaalgorithmsoodmetricspy">ncdia.algorithms.ood.metrics.py</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ncdiaalgorithmssupervisedstandardpy">ncdia.algorithms.supervised.standard.py</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#standardsl">StandardSL</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ncdiadataloader">ncdia.dataloader</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ncdiainference">ncdia.inference</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ncdiamodel">ncdia.model</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ncdiatrainers">ncdia.trainers</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ncdiautils">ncdia.utils</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../scripts/">scripts</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">More Information</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../people/">People</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">OpenHAIV</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Documentation</li>
+      <li class="breadcrumb-item active">ncdia</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ncdia">ncdia</h1>
+<h2 id="ncdiaalgorithms">ncdia.algorithms</h2>
+<p>Includes incremental learning algorithms, new class discovery algorithms, and out-of-distribution detection algorithms, as well as supervised learning algorithms.</p>
+<h3 id="ncdiaalgorithmsbasepy">ncdia.algorithms.base.py</h3>
+<h4 id="basealg">BaseAlg</h4>
+<p>Basic algorithm class to define the interface of an algorithm.</p>
+<ul>
+<li>
+<p><span class="highlight-text"><strong>__init__(self, trainer)</strong></span></p>
+<p>The constructor method that initializes an instance of <strong>BaseAlg</strong>.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>trainer</strong> (<em>object</em>): Trainer object.</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>train_step(self, trainer, data, label, *args, </strong>kwargs)**</span></p>
+<p>Training step.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>trainer</strong> (<em>object</em>): Trainer object.</li>
+<li><strong>data</strong> (<em>torch.Tensor</em>): Input data.</li>
+<li><strong>label</strong> (<em>torch.Tensor</em>): Label data.</li>
+<li><strong>args</strong> (<em>tuple</em>): Additional arguments.</li>
+<li><strong>kwargs</strong> (<em>dict</em>): Additional keyword arguments.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>results</strong> (<em>dict</em>): Training results. Contains the following keys:<ul>
+<li><strong>"loss"</strong>: Loss value.</li>
+<li><strong>"acc"</strong>: Accuracy value.</li>
+<li><strong>other</strong> "key:value" pairs.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>val_step(self, trainer, data, label, *args, </strong>kwargs)**</span></p>
+<p>Validation step.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>trainer</strong> (<em>object</em>): Trainer object.</li>
+<li><strong>data</strong> (<em>torch.Tensor</em>): Input data.</li>
+<li><strong>label</strong> (<em>torch.Tensor</em>): Label data.</li>
+<li><strong>args</strong> (<em>tuple</em>): Additional arguments.</li>
+<li><strong>kwargs</strong> (<em>dict</em>): Additional keyword arguments.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>results</strong> (<em>dict</em>): Validation results. Contains the following keys:<ul>
+<li><strong>"loss"</strong>: Loss value.</li>
+<li><strong>"acc"</strong>: Accuracy value.</li>
+<li><strong>other</strong> "key:value" pairs.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>test_step(self, trainer, data, label, *args, </strong>kwargs)**</span></p>
+<p>Test step.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>trainer</strong> (<em>object</em>): Trainer object.</li>
+<li><strong>data</strong> (<em>torch.Tensor</em>): Input data.</li>
+<li><strong>label</strong> (<em>torch.Tensor</em>): Label data.</li>
+<li><strong>args</strong> (<em>tuple</em>): Additional arguments.</li>
+<li><strong>kwargs</strong> (<em>dict</em>): Additional keyword arguments.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>results</strong> (<em>dict</em>): Test results. Contains the following keys:<ul>
+<li><strong>"loss"</strong>: Loss value.</li>
+<li><strong>"acc"</strong>: Accuracy value.</li>
+<li><strong>other</strong> "key:value" pairs.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="ncdiaalgorithmsincremental">ncdia.algorithms.incremental</h3>
+<p>Include implementation of Class Incremental Learning (CIL) and Few-shot Class Incremental Learning (FSCIL) algorithm.</p>
+<ul>
+<li><strong>CIL</strong><ul>
+<li><strong>Finetune</strong></li>
+<li><strong>LwF</strong></li>
+<li><strong>EwC</strong></li>
+<li><strong>iCarL</strong></li>
+<li><strong>IL2A</strong></li>
+<li><strong>WA</strong>    </li>
+</ul>
+</li>
+<li><strong>FSCIL</strong><ul>
+<li><strong>ALICE</strong></li>
+<li><strong>FACT</strong></li>
+<li><strong>SAVC</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="ncdiaalgorithmsncdautoncdpy">ncdia.algorithms.ncd.autoncd.py</h3>
+<p>Modules related to novel class discovery.</p>
+<h4 id="autoncd">AutoNCD</h4>
+<p>Class for evaluating with OOD metrics and relabeling the OOD dataset for the next session.</p>
+<ul>
+<li>
+<p><span class="highlight-text"><strong>__init__(self, model, train_loader, test_loader, device=None, verbose=False)</strong></span></p>
+<p>The constructor method that initializes an instance of <strong>AutoNCD</strong>. </p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>model</strong> (<em>nn.Module</em>): model to be evaluated.</li>
+<li><strong>train_loader</strong> (<em>DataLoader</em>): train dataloader.</li>
+<li><strong>test_loader</strong> (<em>DataLoader</em>): test dataloader.</li>
+<li><strong>device</strong> (<em>torch.device, optional</em>): device to run the evaluation. Default to None.</li>
+<li><strong>verbose</strong> (<em>bool, optional</em>): print the progress bar. Default to False. </li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>inference(self, dataloader, split='train')</strong></span></p>
+<p>Inference the model on the dataloader and return relevant information. If split is 'train', return the prototype of the training data. </p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>dataloader</strong> (<em>DataLoader</em>): dataloader for evaluation.</li>
+<li><strong>split</strong> (<em>str, optional</em>): train or test. Defaults to 'train'.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>If split is 'train':</p>
+<ul>
+<li>
+<p><strong>features</strong> (<em>torch.Tensor</em>): feature vectors, (N, D).</p>
+</li>
+<li>
+<p><strong>logits</strong> (<em>torch.Tensor</em>): logit vectors, (N, C).</p>
+</li>
+<li>
+<p><strong>prototype_cls</strong> (<em>torch.Tensor</em>): prototype vectors, (C, D).</p>
+</li>
+</ul>
+<p>If split is 'test':</p>
+<ul>
+<li>
+<p><strong>imgpaths</strong> (<em>list</em>): image paths (list).</p>
+</li>
+<li>
+<p><strong>features</strong> (<em>torch.Tensor</em>): feature vectors, (N, D).</p>
+</li>
+<li>
+<p><strong>logits</strong> (<em>torch.Tensor</em>): logit vectors, (N, C).</p>
+</li>
+<li>
+<p><strong>preds</strong> (<em>torch.Tensor</em>): prediction labels, (N,).</p>
+</li>
+<li>
+<p><strong>labels</strong> (<em>torch.Tensor</em>): ground truth labels, (N,).</p>
+</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>relabel(self, ood_loader, metrics=[], tpr_th=0.95, prec_th=None)</strong></span></p>
+<p>Relabel the OOD dataset for the next session.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>ood_loader</strong> (<em>DataLoader</em>): OOD dataloader for relabeling.</li>
+<li><strong>metrics</strong> (<em>list, optional</em>): metrics to evaluate the OOD dataset. Defaults to [].</li>
+<li><strong>tpr_th</strong> (<em>float, optional</em>): True positive rate threshold. Defaults to 0.95.</li>
+<li><strong>prec_th</strong> (<em>float, optional</em>): Precision threshold. Defaults to None.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>ood_loader</strong> (<em>DataLoader</em>): relabeled OOD dataloader.</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>_split_cluster_label(self, y_label, y_pred, ood_class)</strong></span></p>
+<p>Calculate clustering accuracy. Require scikit-learn installed. First compute linear assignment on all data, then look at how good the accuracy is on subsets.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>y_label</strong> (<em>numpy.array</em>): true labels, (n_samples,)</li>
+<li><strong>y_pred</strong> (<em>numpy.array</em>): predicted labels (n_samples,)</li>
+<li><strong>ood_class</strong>: out-of-distribution class labels</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>cluster_label</strong>: cluster label</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>search_discrete_point(self, novel_feat, novel_target)</strong></span></p>
+</li>
+</ul>
+<p><span style="color: red;"><strong>TODO</strong></span></p>
+<h3 id="ncdiaalgorithmsoodautooodpy">ncdia.algorithms.ood.autoood.py</h3>
+<h4 id="autoood">AutoOOD</h4>
+<p>Class for evaluating OOD detection methods.</p>
+<ul>
+<li>
+<p><span class="highlight-text"><strong>eval(prototype_cls, fc_weight, train_feats, train_logits, id_feats, id_logits, id_labels, ood_feats, ood_logits, ood_labels, metrics=[], tpr_th=0.95, prec_th=None, id_attrs=None, ood_attrs=None, prototype_att=None)</strong></span></p>
+<p>Evaluate the OOD detection methods and return OOD scores.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>prototype_cls</strong> (<em>np.ndarray</em>): prototype of training data</li>
+<li><strong>fc_weight</strong> (<em>np.ndarray</em>): weight of the last layer</li>
+<li><strong>train_feats</strong> (<em>np.ndarray</em>): feature of training data</li>
+<li><strong>train_logits</strong> (<em>np.ndarray</em>): logits of training data</li>
+<li><strong>id_feats</strong> (<em>np.ndarray</em>): feature of ID data</li>
+<li><strong>id_logits</strong> (<em>np.ndarray</em>): logits of ID data</li>
+<li><strong>id_labels</strong> (<em>np.ndarray</em>): labels of ID data</li>
+<li><strong>ood_feats</strong> (<em>np.ndarray</em>): feature of OOD data</li>
+<li><strong>ood_logits</strong> (<em>np.ndarray</em>): logits of OOD data</li>
+<li><strong>ood_labels</strong> (<em>np.ndarray</em>): labels of OOD data</li>
+<li><strong>metrics</strong> (<em>list, optional</em>): list of OOD detection methods to evaluate. Defaults to [].</li>
+<li><strong>tpr_th</strong> (<em>float, optional</em>): True positive rate threshold. Defaults to 0.95.</li>
+<li><strong>prec_th</strong> (<em>float, optional</em>): Precision threshold. Defaults to None.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>ood_scores</strong> (<em>dict</em>): OOD scores, keys are the names of the OOD detection methods, values are the OOD scores and search threshold. Each value is a tuple containing the following:<ul>
+<li><strong>ood metrics</strong> (<em>tuple</em>):<ul>
+<li><strong>fpr</strong> (<em>float</em>): false positive rate</li>
+<li><strong>auroc</strong> (<em>float</em>): area under the ROC curve</li>
+<li><strong>aupr_in</strong> (<em>float</em>): area under the precision-recall curve for in-distribution samples</li>
+<li><strong>aupr_out</strong> (<em>float</em>): area under the precision-recall curve for out-of-distribution samples</li>
+</ul>
+</li>
+<li><strong>search threshold</strong> (<em>tuple</em>): threshold for OOD detection if prec_th is not None<ul>
+<li><strong>best_th</strong> (<em>float</em>): best threshold for OOD detection</li>
+<li><strong>conf</strong> (<em>torch.Tensor</em>): confidence scores</li>
+<li><strong>label</strong> (<em>torch.Tensor</em>): label array</li>
+<li><strong>precisions</strong> (<em>float</em>): precision when precisions &gt;= prec_th</li>
+<li><strong>recalls</strong> (<em>float</em>): recall when precisions &gt;= prec_th</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>inference(metrics, logits, feat, train_logits, train_feat, fc_weight, prototype, logits_att=None, prototype_att=None)</strong></span></p>
+<p>Inferencec method for OOD detection</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>metrics</strong> (<em>list</em>): the ood metrics used for inference.</li>
+<li><strong>logits</strong> (<em>np.ndarray</em>): logits of inference data.</li>
+<li><strong>feat</strong> (<em>np.ndarray</em>): features of inference data.</li>
+<li><strong>train_logits</strong> (<em>np.ndarray</em>): logits of training data.</li>
+<li><strong>train_feat</strong> (<em>np.ndarray</em>): features of training data.</li>
+<li><strong>fc_weight</strong> (<em>np.ndarray</em>): weight of the last layer.</li>
+<li><strong>prototype</strong> (<em>np.ndarray</em>): prototypes of training data.</li>
+<li><strong>logits_att</strong> (<em>np.ndarray, optional</em>): logits of attribute.</li>
+<li><strong>prototype_att</strong> (<em>np.ndarray, optional</em>): prototypes of attribute. </li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>conf</strong> (<em>dict</em>): contains the confidence using different metrics, <strong>conf[metric]</strong> (<em>torch.Tensor</em>) is the confidence using specific metric.</li>
+</ul>
+</li>
+</ul>
+<h3 id="ncdiaalgorithmsoodmethodspy">ncdia.algorithms.ood.methods.py</h3>
+<ul>
+<li>
+<p><span class="highlight-text"><strong>msp(id_gt, id_logits, ood_gt, ood_logits, tpr_th=0.95, prec_th=None)</strong></span></p>
+<p>Maximum Softmax Probability (MSP) method for OOD detection.</p>
+<p>A Baseline for Detecting Misclassified and Out-of-Distribution Examples in Neural Networks.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>id_gt</strong> (<em>torch.Tensor</em>): ID ground truth labels. Shape (N,).</li>
+<li><strong>id_logits</strong> (<em>torch.Tensor</em>): ID logits. Shape (N, C).</li>
+<li><strong>ood_gt</strong> (<em>torch.Tensor</em>): OOD ground truth labels. Shape (M,).</li>
+<li><strong>ood_logits</strong> (<em>torch.Tensor</em>): OOD logits. Shape (M, C).</li>
+<li><strong>tpr_th</strong> (<em>float</em>): True positive rate threshold to compute
+    false positive rate. Default is 0.95.</li>
+<li><strong>prec_th</strong> (<em>float</em>): Precision threshold for searching - threshold.
+    If None, not searching for threshold. Default is None.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>conf</strong> (<em>np.ndarray</em>): Confidence scores. Shape (N + M,).</li>
+<li><strong>label</strong> (<em>np.ndarray</em>): Label array. Shape (N + M,).</li>
+<li><strong>fpr</strong> (<em>float</em>): False positive rate.</li>
+<li><strong>auroc</strong> (<em>float</em>): Area under the ROC curve.</li>
+<li><strong>aupr_in</strong> (<em>float</em>): Area under the precision-recall curve 
+    for in-distribution samples.</li>
+<li><strong>aupr_out</strong> (<em>float</em>): Area under the precision-recall curve
+    for out-of-distribution</li>
+<li><strong>best_th</strong> (<em>float</em>): Threshold for OOD detection. If prec_th is None, None.</li>
+<li><strong>prec</strong> (<em>float</em>): Precision at the threshold. If prec_th is None, None.</li>
+<li><strong>recall</strong> (<em>float</em>): Recall at the threshold. If prec_th is None, None.</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>mcm(id_gt, id_logits, ood_gt, ood_logits, T=2, tpr_th=0.95, prec_th=None)</strong></span></p>
+<p>Maximum Concept Matching (MCM) method for OOD detection.</p>
+<p>Delving into Out-of-Distribution Detection with Vision-Language Representations</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>id_gt</strong> (<em>torch.Tensor</em>): ID ground truth labels. Shape (N,).</li>
+<li><strong>id_logits</strong> (<em>torch.Tensor</em>): ID logits. Shape (N, C).</li>
+<li><strong>ood_gt</strong> (<em>torch.Tensor</em>): OOD ground truth labels. Shape (M,).</li>
+<li><strong>ood_logits</strong> (<em>torch.Tensor</em>): OOD logits. Shape (M, C).</li>
+<li><strong>T</strong> (<em>int</em>): Temperature for softmax.</li>
+<li><strong>tpr_th</strong> (<em>float</em>): True positive rate threshold to compute
+    false positive rate. Default is 0.95.</li>
+<li><strong>prec_th</strong> (<em>float</em>): Precision threshold for searching threshold.
+    If None, not searching for threshold. Default is None.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>fpr</strong> (<em>float</em>): False positive rate.</li>
+<li><strong>auroc</strong> (<em>float</em>): Area under the ROC curve.</li>
+<li><strong>aupr_in</strong> (<em>float</em>): Area under the precision-recall curve 
+    for in-distribution samples.</li>
+<li><strong>aupr_out</strong> (<em>float</em>): Area under the precision-recall curve
+    for out-of-distribution.</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>max_logit(id_gt, id_logits, ood_gt, ood_logits, tpr_th=0.95, prec_th=None)</strong></span></p>
+<p>Maximum Logit (MaxLogit) method for OOD detection.</p>
+<p>Scaling Out-of-Distribution Detection for Real-World Settings</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>id_gt</strong> (<em>torch.Tensor</em>): ID ground truth labels. Shape (N,).</li>
+<li><strong>id_logits</strong> (<em>torch.Tensor</em>): ID logits. Shape (N, C).</li>
+<li><strong>ood_gt</strong> (<em>torch.Tensor</em>): OOD ground truth labels. Shape (M,).</li>
+<li><strong>ood_logits</strong> (<em>torch.Tensor</em>): OOD logits. Shape (M, C).</li>
+<li><strong>tpr_th</strong> (<em>float</em>): True positive rate threshold to compute
+    false positive rate. Default is 0.95.</li>
+<li><strong>prec_th</strong> (<em>float</em>): Precision threshold for searching threshold.
+    If None, not searching for threshold. Default is None.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>fpr</strong> (<em>float</em>): False positive rate.</li>
+<li><strong>auroc</strong> (<em>float</em>): Area under the ROC curve.</li>
+<li><strong>aupr_in</strong> (<em>float</em>): Area under the precision-recall curve 
+    for in-distribution samples.</li>
+<li><strong>aupr_out</strong> (<em>float</em>): Area under the precision-recall curve
+    for out-of-distribution</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>energy(id_gt, id_logits, ood_gt, ood_logits, tpr_th=0.95, prec_th=None)</strong></span></p>
+<p>Energy-based method for OOD detection.</p>
+<p>Energy-based Out-of-distribution Detection</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>id_gt</strong> (<em>torch.Tensor</em>): ID ground truth labels. Shape (N,).</li>
+<li><strong>id_logits</strong> (<em>torch.Tensor</em>): ID logits. Shape (N, C).</li>
+<li><strong>ood_gt</strong> (<em>torch.Tensor</em>): OOD ground truth labels. Shape (M,).</li>
+<li><strong>ood_logits</strong> (<em>torch.Tensor</em>): OOD logits. Shape (M, C).</li>
+<li><strong>tpr_th</strong> (<em>float</em>): True positive rate threshold to compute
+    false positive rate. Default is 0.95.</li>
+<li><strong>prec_th</strong> (<em>float</em>): Precision threshold for searching threshold.
+    If None, not searching for threshold. Default is None.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>fpr</strong> (<em>float</em>): False positive rate.</li>
+<li><strong>auroc</strong> (<em>float</em>): Area under the ROC curve.</li>
+<li><strong>aupr_in</strong> (<em>float</em>): Area under the precision-recall curve 
+    for in-distribution samples.</li>
+<li><strong>aupr_out</strong> (<em>float</em>): Area under the precision-recall curve
+    for out-of-distribution</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>vim(id_gt, id_logits, id_feat, ood_gt, ood_logits, ood_feat, train_logits, train_feat, tpr_th=0.95, prec_th=None)</strong></span></p>
+<p>Virtual-Logit Matching (ViM) method for OOD detection.</p>
+<p>ViM: Out-of-Distribution With Virtual-Logit Matching</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>id_gt</strong> (<em>torch.Tensor</em>): ID ground truth labels. Shape (N,).</li>
+<li><strong>id_logits</strong> (<em>torch.Tensor</em>): ID logits. Shape (N, C).</li>
+<li><strong>id_feat</strong> (<em>torch.Tensor</em>): ID features. Shape (N, D).</li>
+<li><strong>ood_gt</strong> (<em>torch.Tensor</em>): OOD ground truth labels. Shape (M,).</li>
+<li><strong>ood_logits</strong> (<em>torch.Tensor</em>): OOD logits. Shape (M, C).</li>
+<li><strong>ood_feat</strong> (<em>torch.Tensor</em>): OOD features. Shape (M, D).</li>
+<li><strong>train_logits</strong> (<em>torch.Tensor</em>): Training logits. Shape (K, C).</li>
+<li><strong>train_feat</strong> (<em>torch.Tensor</em>): Training features. Shape (K, D).</li>
+<li><strong>tpr_th</strong> (<em>float</em>): True positive rate threshold to compute
+    false positive rate. Default is 0.95.</li>
+<li><strong>prec_th</strong> (<em>float</em>): Precision threshold for searching threshold.
+    If None, not searching for threshold. Default is None.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>fpr</strong> (<em>float</em>): False positive rate.</li>
+<li><strong>auroc</strong> (<em>float</em>): Area under the ROC curve.</li>
+<li><strong>aupr_in</strong> (<em>float</em>): Area under the precision-recall curve 
+    for in-distribution samples.</li>
+<li><strong>aupr_out</strong> (<em>float</em>): Area under the precision-recall curve
+    for out-of-distribution</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>dml(id_gt, id_feat, ood_gt, ood_feat, fc_weight, tpr_th=0.95, prec_th=None)</strong></span></p>
+<p>Decoupled MaxLogit (DML) method for OOD detection.</p>
+<p>Decoupling MaxLogit for Out-of-Distribution Detection</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>id_gt</strong> (<em>torch.Tensor</em>): ID ground truth labels. Shape (N,).</li>
+<li><strong>id_feat</strong> (<em>torch.Tensor</em>): ID features. Shape (N, D).</li>
+<li><strong>ood_gt</strong> (<em>torch.Tensor</em>): OOD ground truth labels. Shape (M,).</li>
+<li><strong>ood_feat</strong> (<em>torch.Tensor</em>): OOD features. Shape (M, D).</li>
+<li><strong>fc_weight</strong> (<em>torch.Tensor</em>): FC layer weight. Shape (C, D).</li>
+<li><strong>tpr_th</strong> (<em>float</em>): True positive rate threshold to compute
+    false positive rate. Default is 0.95.</li>
+<li><strong>prec_th</strong> (<em>float</em>): Precision threshold for searching threshold.
+    If None, not searching for threshold. Default is None.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>fpr</strong> (<em>float</em>): False positive rate.</li>
+<li><strong>auroc</strong> (<em>float</em>): Area under the ROC curve.</li>
+<li><strong>aupr_in</strong> (<em>float</em>): Area under the precision-recall curve 
+    for in-distribution samples.</li>
+<li><strong>aupr_out</strong> (<em>float</em>): Area under the precision-recall curve
+    for out-of-distribution</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>dmlp(id_gt, id_logits, id_feat, ood_gt, ood_logits, ood_feat, fc_weight, prototype,tpr_th=0.95, prec_th=None)</strong></span></p>
+<p>Decoupled MaxLogit+ (DML+) method for OOD detection.</p>
+<p>Decoupling MaxLogit for Out-of-Distribution Detection</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>id_gt</strong> (<em>torch.Tensor</em>): ID ground truth labels. Shape (N,).</li>
+<li><strong>id_logits</strong> (<em>torch.Tensor</em>): ID logits. Shape (N, C).</li>
+<li><strong>id_feat</strong> (<em>torch.Tensor</em>): ID features. Shape (N, D).</li>
+<li><strong>ood_gt</strong> (<em>torch.Tensor</em>): OOD ground truth labels. Shape (M,).</li>
+<li><strong>ood_logits</strong> (<em>torch.Tensor</em>): OOD logits. Shape (M, C).</li>
+<li><strong>ood_feat</strong> (<em>torch.Tensor</em>): OOD features. Shape (M, D).</li>
+<li><strong>fc_weight</strong> (<em>torch.Tensor</em>): FC layer weight. Shape (D, C).</li>
+<li><strong>prototype</strong> (<em>torch.Tensor</em>): Prototype. Shape (D, C).</li>
+<li><strong>tpr_th</strong> (<em>float</em>): True positive rate threshold to compute
+    false positive rate. Default is 0.95.</li>
+<li><strong>prec_th</strong> (<em>float</em>): Precision threshold for searching threshold.
+    If None, not searching for threshold. Default is None.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>fpr</strong> (<em>float</em>): False positive rate.</li>
+<li><strong>auroc</strong> (<em>float</em>): Area under the ROC curve.</li>
+<li><strong>aupr_in</strong> (<em>float</em>): Area under the precision-recall curve 
+    for in-distribution samples.</li>
+<li><strong>aupr_out</strong> (<em>float</em>): Area under the precision-recall curve
+    for out-of-distribution</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>prot(id_gt, id_logits, ood_gt, ood_logits, prototypes: list, tpr_th=0.95, prec_th=None)</strong></span></p>
+<p>Prototype-based (Prot) method for OOD detection.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>id_gt</strong> (<em>torch.Tensor</em>): ID ground truth labels, shape (N,).</li>
+<li><strong>id_logits</strong> (<em>list of torch.Tensor</em>): ID logits, containing shape (N, C).</li>
+<li><strong>ood_gt</strong> (<em>torch.Tensor</em>): OOD ground truth labels, shape (M,).</li>
+<li><strong>ood_logits</strong> (<em>list of torch.Tensor</em>): OOD logits, containing shape (M, C).</li>
+<li><strong>prototypes</strong> (<em>list of torch.Tensor</em>): Prototypes, containing shape (D, C).</li>
+<li><strong>tpr_th</strong> (<em>float</em>): True positive rate threshold to compute 
+    false positive rate.</li>
+<li><strong>prec_th</strong> (<em>float</em>): Precision threshold for searching threshold.
+    If None, not searching for threshold. Default is</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>fpr</strong> (<em>float</em>): False positive rate.</li>
+<li><strong>auroc</strong> (<em>float</em>): Area under the ROC curve.</li>
+<li><strong>aupr_in</strong> (<em>float</em>): Area under the precision-recall curve 
+    for in-distribution samples.</li>
+<li><strong>aupr_out</strong> (<em>float</em>): Area under the precision-recall curve
+    for out-of-distribution</li>
+</ul>
+</li>
+</ul>
+<h3 id="ncdiaalgorithmsoodinferencepy">ncdia.algorithms.ood.inference.py</h3>
+<p>The inference version of implemented ood methods in <a href="#ncdiaalgorithmsoodmethodspy">ncdia.algorithms.ood.methods.py</a></p>
+<h3 id="ncdiaalgorithmsoodmetricspy">ncdia.algorithms.ood.metrics.py</h3>
+<ul>
+<li>
+<p><span class="highlight-text"><strong>ood_metrics(conf, label, tpr_th=0.95)</strong></span></p>
+<p>Compute OOD metrics.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>conf</strong> (<em>np.ndarray</em>): Confidence scores. Shape (N,).</li>
+<li><strong>label</strong> (<em>np.ndarray</em>): Label array. Shape (N,). Containing:
+    -1: OOD samples.
+    int &gt;= 0: ID samples with class labels</li>
+<li><strong>tpr_th</strong> (<em>float</em>): True positive rate threshold to compute 
+    false positive rate.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>fpr</strong> (<em>float</em>): False positive rate.</li>
+<li><strong>auroc</strong> (<em>float</em>): Area under the ROC curve.</li>
+<li><strong>aupr_in</strong> (<em>float</em>): Area under the precision-recall curve 
+    for in-distribution samples.</li>
+<li><strong>aupr_out</strong> (<em>float</em>): Area under the precision-recall curve
+    for out-of-distribution samples.</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>search_threshold(conf, label, prec_th)</strong></span></p>
+<p>Search for the threshold for OOD detection.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>conf</strong> (<em>np.ndarray</em>): Confidence scores. Shape (N,).</li>
+<li><strong>label</strong> (<em>np.ndarray</em>): Label array. Shape (N,). Containing:
+    -1: OOD samples.
+    int &gt;= 0: ID samples with class labels</li>
+<li><strong>prec_th</strong> (<em>float</em>): Precision threshold.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>best_th</strong> (<em>float</em>): Threshold for OOD detection.</li>
+<li><strong>prec</strong> (<em>float</em>): Precision at the threshold.</li>
+<li><strong>recall</strong> (<em>float</em>): Recall at the threshold.</li>
+</ul>
+</li>
+</ul>
+<h3 id="ncdiaalgorithmssupervisedstandardpy">ncdia.algorithms.supervised.standard.py</h3>
+<p>Modules related to supervised learning</p>
+<h4 id="standardsl">StandardSL</h4>
+<p>Class inherits from <strong>BaseAlg</strong>. Standard supervised learning algorithm</p>
+<ul>
+<li>
+<p><span class="highlight-text"><strong>train_step(self, trainer, data, label, *args, **kwargs)</strong></span></p>
+<p>Training step for standard supervised learning.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>trainer</strong> (<em>object</em>): Trainer object.</li>
+<li><strong>data</strong> (<em>torch.Tensor</em>): Input data.</li>
+<li><strong>label</strong> (<em>torch.Tensor</em>): Label data.</li>
+<li><strong>args</strong> (<em>tuple</em>): Additional arguments.</li>
+<li><strong>kwargs</strong> (<em>dict</em>): Additional keyword arguments.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>
+<p><strong>results</strong> (<em>dict</em>): Training results. Contains the following keys:</p>
+<ul>
+<li><strong>"loss"</strong>: Loss value.</li>
+<li><strong>"acc"</strong>: Accuracy value.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>val_step(self, trainer, data, label, *args, **kwargs)</strong></span></p>
+<p>Validation step for standard supervised learning.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>trainer</strong> (<em>object</em>): Trainer object.</li>
+<li><strong>data</strong> (<em>torch.Tensor</em>): Input data.</li>
+<li><strong>label</strong> (<em>torch.Tensor</em>): Label data.</li>
+<li><strong>args</strong> (<em>tuple</em>): Additional arguments.</li>
+<li><strong>kwargs</strong> (<em>dict</em>): Additional keyword arguments.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>
+<p><strong>results</strong> (<em>dict</em>): Validation results. Contains the following:</p>
+<ul>
+<li><strong>"loss"</strong>: Loss value.</li>
+<li><strong>"acc"</strong>: Accuracy value.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><span class="highlight-text"><strong>test_step(self, trainer, data, label, *args, **kwargs)</strong></span></p>
+<p>Test step for standard supervised learning.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li>trainer (object): Trainer object.</li>
+<li>data (torch.Tensor): Input data.</li>
+<li>label (torch.Tensor): Label data.</li>
+<li>args (tuple): Additional arguments.</li>
+<li>kwargs (dict): Additional keyword arguments.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li>
+<p><strong>results</strong> (<em>dict</em>): Test results. Contains the following:</p>
+<ul>
+<li><strong>"loss"</strong>: Loss value.</li>
+<li><strong>"acc"</strong>: Accuracy value.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="ncdiadataloader">ncdia.dataloader</h2>
+<h2 id="ncdiainference">ncdia.inference</h2>
+<h2 id="ncdiamodel">ncdia.model</h2>
+<h2 id="ncdiatrainers">ncdia.trainers</h2>
+<h2 id="ncdiautils">ncdia.utils</h2>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../config/" class="btn btn-neutral float-left" title="config"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../scripts/" class="btn btn-neutral float-right" title="scripts">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../config/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../scripts/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

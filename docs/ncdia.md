@@ -572,6 +572,155 @@ Class inherits from **BaseAlg**. Standard supervised learning algorithm
 ## ncdia.inference
 
 ## ncdia.model
+### ncdia.models.models.py
+- <span class="highlight-text">**get_network(config)**</span>
+
+
+    load model.
+
+    **Parameters:**
+    -**trainer**(*config*): model config
+
+### ncdia.models.net.inc_net.py
+#### BaseNet
+
+BaseNet for incremental learning.
+
+- <span class="highlight-text">**\_\_init\_\_(self, network, base_classes, num_classes, att_classes, net_alice, mode)**</span>
+
+    The constructor method that initializes an instance of **BaseNet**.
+
+    **Parameters:**
+
+    - **network** (*config*): The config of the network.
+    - **base_classes**(*int*): The number of base classes.
+    - **num_classes**(*int*): The total class number.
+    - **att_classes**(*int*): The attribute class number.
+    - **mode**(*str*): classifier mode.
+
+
+
+- <span class="highlight-text">**feature_dim(self)**</span>
+
+    The feature dimension of the network.
+
+    **Returns:**
+
+    - **out_dim**(*int*) feature dimension of the network.
+
+- <span class="highlight-text">**extractor_vector(self, x)**</span>
+    
+    get features of input x.
+
+    **Parameters:**
+
+    - **x**(*tensor*): input data.
+
+    **Returns:**
+
+    - **out_features**(*tensor*) features of the input.
+
+- <span class="highlight-text">**forward(self, x)**</span>
+    
+    forworad pass of the network.
+
+    **Parameters:**
+
+    - **x**(*tensor*): input data.
+
+
+    **Returns:**
+    
+    - **results** (*dict*): forward pass results. Contains the following keys:
+        - **"fmaps"**: [x_1, x_2, ..., x_n],
+        - **"features"**: features
+        - **"logits"**: logits
+
+
+- <span class="highlight-text">**copy(self)**</span>
+
+    copy.
+
+    **Returns:**
+
+    - **copy function**.
+
+
+
+- <span class="highlight-text">**freeze(self)**</span>
+
+    freeze parameters.
+
+#### IncrementalNet
+
+Incremental Network which follows BaseNet.
+
+
+- <span class="highlight-text">**\_\_init\_\_(self, network, base_classes, num_classes, att_classes, net_alice, mode)**</span>
+
+    The constructor method that initializes an instance of **BaseNet**.
+
+    **Parameters:**
+
+    - **network** (*config*): The config of the network.
+    - **base_classes**(*int*): The number of base classes.
+    - **num_classes**(*int*): The total class number.
+    - **att_classes**(*int*): The attribute class number.
+    - **mode**(*str*): classifier mode.
+
+- <span class="highlight-text">**update_fc(self, nb_classes)**</span>
+
+    update fc parameter, generate new fc and copy old parameter.
+
+    **Parameters:**
+
+    - **network** (*int*): New class number.
+
+    **Returns:**
+
+    - **fc**: updated fc layers.
+
+- <span class="highlight-text">**generate_fc(self, in_dim, out_dim)**</span>
+
+    **Parameters:**
+
+    - **in_dim** (*int*): new fc in dimension.
+    - **out_dim** (*int*): new fc out dimension.
+
+    **Returns:**
+
+    - **fc**: new fc layers.
+
+
+- <span class="highlight-text">**forward(self, x)**</span>
+    
+    forworad pass of the network.
+
+    **Parameters:**
+
+    - **x**(*tensor*): input data.
+
+
+    **Returns:**
+    
+    - **results** (*dict*): forward pass results. Contains the following keys:
+        - **"fmaps"**: [x_1, x_2, ..., x_n],
+        - **"features"**: features
+        - **"logits"**: logits
+
+- <span class="highlight-text">**weight_align(self, increment)**</span>
+    
+    normalize classifer parameters.
+
+    **Parameters:**
+
+    
+
+    - **increment**(*int*): incremental classes.
+
+
+    
+
 
 ## ncdia.trainers
 

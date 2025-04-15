@@ -698,13 +698,23 @@ Basic trainer class for training models.
 
 - <span class="highlight-text">** cfg(self)**</span>
 
+Configuration for trainer
+
 - <span class="highlight-text">** hooks(self)**</span>
+
+List of registered hooks
 
 - <span class="highlight-text">** logger(self)**</span>
 
+Logger for logging information
+
 - <span class="highlight-text">** work_dir(self)**</span>
 
+ Working directory to save logs and checkpoints
+
 - <span class="highlight-text">** session(self)**</span>
+
+Session number. If == 0, execute pre-training.
 
 - <span class="highlight-text">** model(self)**</span>
 

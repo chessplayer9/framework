@@ -844,81 +844,374 @@ Basic trainer class for training models.
     - **load_from** (*str, optional*): Checkpoint file path to load.
     - **work_dir** (*str, optional*): Working directory to save logs and checkpoints.
 
+- <span class="highlight-text">** train_step(self, batch, \*\*kwargs)**</span>
 
-- <span class="highlight-text">** cfg(self)**</span>
+    Training step. **This method should be implemented in subclasses.**
 
-Configuration for trainer
+    **Parameters:**
 
-- <span class="highlight-text">** hooks(self)**</span>
+    - **batch** (*dict | tuple | list*): A batch of data from the data loader.
 
-List of registered hooks
+    **Returns:**
 
-- <span class="highlight-text">** logger(self)**</span>
+    - results (dict): Contains the following:
 
-Logger for logging information
+        {"key1": value1, "key2": value2,...}
 
-- <span class="highlight-text">** work_dir(self)**</span>
-
- Working directory to save logs and checkpoints
-
-- <span class="highlight-text">** session(self)**</span>
-
-Session number. If == 0, execute pre-training.
-
-- <span class="highlight-text">** model(self)**</span>
-
-- <span class="highlight-text">** train_loader(self)**</span>
-
-- <span class="highlight-text">** val_loader(self)**</span>
-
-- <span class="highlight-text">** test_loader(self)**</span>
-
-- <span class="highlight-text">** optimizer(self)**</span>
-
-- <span class="highlight-text">** scheduler(self)**</span>
-
-- <span class="highlight-text">** criterion(self)**</span>
-
-- <span class="highlight-text">** algorithm(self)**</span>
-
-- <span class="highlight-text">** metrics(self)**</span>
-
-- <span class="highlight-text">** max_epochs(self)**</span>
-
-- <span class="highlight-text">** max_train_iters(self)**</span>
-
-- <span class="highlight-text">** max_val_iters(self)**</span>
-
-- <span class="highlight-text">** max_test_iters(self)**</span>
-
-- <span class="highlight-text">** device(self)**</span>
-
-- <span class="highlight-text">** train_step(self, batch, **kwargs)**</span>
+        keys denote the description of the value, such as **"loss"**, **"acc"**, **"ccr"**, etc.
+        values are the corresponding values of the keys, can be *int*, *float*, *str*, etc.    
 
 - <span class="highlight-text">** val_step(self, batch, **kwargs)**</span>
 
+    Validation step. **This method should be implemented in subclasses.**
+
+    **Parameters:**
+
+    - **batch** (*dict | tuple | list*): A batch of data from the data loader.
+
+    **Returns:**
+
+    - results (dict): Contains the following:
+
+        {"key1": value1, "key2": value2,...}
+
+        keys denote the description of the value, such as **"loss"**, **"acc"**, **"ccr"**, etc.
+        values are the corresponding values of the keys, can be *int*, *float*, *str*, etc.    
+
 - <span class="highlight-text">** test_step(self, batch, **kwargs)**</span>
+
+    Test step. **This method should be implemented in subclasses.**
+
+    **Parameters:**
+
+    - **batch** (*dict | tuple | list*): A batch of data from the data loader.
+
+    **Returns:**
+
+    - results (dict): Contains the following:
+
+        {"key1": value1, "key2": value2,...}
+
+        keys denote the description of the value, such as **"loss"**, **"acc"**, **"ccr"**, etc.
+        values are the corresponding values of the keys, can be *int*, *float*, *str*, etc.   
 
 - <span class="highlight-text">** train(self)**</span>
 
+    Launch the training process.
+
+    **Returns:**
+
+    -  **model** (*nn.Module*): Trained model.
+
 - <span class="highlight-text">** val(self)**</span>
+
+Validation process.
 
 - <span class="highlight-text">** test(self)**</span>
 
+Test process.
+
 - <span class="highlight-text">** load_ckpt(self, fpath, device='cpu')**</span>
+
+    Load checkpoint from file.
+
+    **Parameters:**
+
+    - **fpath** (*str*): Checkpoint file path.
+    - **device** (*str*): Device to load checkpoint. Defaults to 'cpu'.
+
+    **Returns:**
+
+    - **model** (*nn.Module*): Loaded model.
 
 - <span class="highlight-text">** save_ckpt(self, fpath)**</span>
 
+    Save checkpoint to file.
+
+    **Parameters:**
+
+    - **fpath** (*str*): Checkpoint file path.
+
 - <span class="highlight-text">** call_hook(self, fn_name: str, **kwargs)**</span>
+
+    Call all hooks with the specified function name.
+
+    **Parameters:**
+
+    - **fn_name** (*str*): Function name to be called, such as:
+
+        - **'before_train_epoch'**
+        - **'after_train_epoch'**
+        - **'before_train_iter'**
+        - **'after_train_iter'**
+        - **'before_val_epoch'**
+        - **'after_val_epoch'**
+        - **'before_val_iter'**
+        - **'after_val_iter'**
+    
+    - **kwargs** (*dict*): Arguments for the function.
 
 - <span class="highlight-text">**register_hook(self, hook, priority=None)**</span>
 
+    **Register a hook into the hook list.**
+
+    The hook will be inserted into a priority queue, with the specified priority (See :class:`Priority` for details of priorities). For hooks with the same priority, they will be triggered in the same order as they are registered. Priority of hook will be decided with the following priority:
+
+    - ``priority`` argument. If ``priority`` is given, it will be priority of hook.
+    - If ``hook`` argument is a dict and ``priority`` in it, the priority will be the value of ``hook['priority']``.
+    - If ``hook`` argument is a dict but ``priority`` not in it or ``hook`` is an instance of ``hook``, the priority will be ``hook.priority``.
+
+    **Parameters:**
+
+    - **hook** (*:obj:`Hook` or dict*): The hook to be registered. priority (int or str or :obj:`Priority`, optional): Hook priority. Lower value means higher priority.
+
 - <span class="highlight-text">** register_default_hooks(self, hooks=None)**</span>
+
+    **Register default hooks into hook list.**
+    
+    ``hooks`` will be registered into runner to execute some default actions like updating model parameters or saving checkpoints.
+
+    Default hooks and their priorities:
+
+    | Hooks               | Priority           |
+    | :-------------------| :------------------|
+    | RuntimeInfoHook     |  VERY_HIGH (10)    |
+    | IterTimerHook       |  NORMAL (50)       |
+    | DistSamplerSeedHook |  NORMAL (50)       |
+    | LoggerHook          |  BELOW_NORMAL (60) |
+    | ParamSchedulerHook  |  LOW (70)          |
+    | CheckpointHook      |  VERY_LOW (90)     |
+
+    If ``hooks`` is None, above hooks will be registered by default:
+
+        default_hooks = dict(
+            logger=dict(type='LoggerHook'),
+            model=dict(type='ModelHook'),
+            alg=dict(type='AlgHook'),
+            optimizer = dict(type='OptimizerHook'),
+            scheduler = dict(type='SchedulerHook'),
+            metric = dict(type='MetricHook'),
+        )
+
+    If not None, ``hooks`` will be merged into ``default_hooks``.
+    If there are None value in default_hooks, the corresponding item will
+    be popped from ``default_hooks``:
+
+        hooks = dict(timer=None)
+
+    The final registered default hooks will be :obj:`RuntimeInfoHook`, :obj:`DistSamplerSeedHook`, :obj:`LoggerHook`, :obj:`ParamSchedulerHook` and :obj:`CheckpointHook`.
+
+    **Parameters:**
+
+    - **hooks** (*dict[str, Hook or dict]*): Default hooks or configs to be registered.
 
 - <span class="highlight-text">** register_custom_hooks(self, hooks)**</span>
 
+    Register custom hooks into hook list.
+
+    **Parameters:**
+
+    **hooks** (*list[Hook | dict]*): List of hooks or configs to be registered.
+
 - <span class="highlight-text">** register_hooks(self, default_hooks=None, custom_hooks=None)**</span>
 
+    Register default hooks and custom hooks into hook list.
+
+    **Parameters:**
+
+    - **default_hooks** (*dict[str, dict] or dict[str, Hook]*): Hooks to execute default actions like updating model parameters and saving checkpoints.  Defaults to None.
+    - **custom_hooks** (*list[dict] or list[Hook]*): Hooks to execute custom actions like visualizing images processed by pipeline. Defaults to None.
+
 - <span class="highlight-text">**get_hooks_info(self)**</span>
+
+    Get registered hooks information.
+
+    **Returns:**
+
+    - **info** (*str*): Information of registered hooks.
+
+### ncdia.trainers.pretrainer.py
+
+#### PreTrainer
+
+PreTrainer class for pre-training a model on session 0.
+
+**Attributes:**
+
+- **max_epochs** (*int*): Total epochs for training.
+
+**Methods:**
+
+- **\_\_init\_\_(self, max_epochs=1, \*\*kwargs):** The constructor method that initializes an instance of **PreTrainer**. **max_epochs** (*int*): Total epochs for training.
+- **train_step(self, batch, \*\*kwargs):** Training step.
+- **val_step(self, batch, \*\*kwargs):** Validation step.
+- **test_step(self, batch, \*\*kwargs):** Test step.
+- **batch_parser(batch)** 
+    
+    Parse a batch of data.
+
+    **Parameters:**
+
+    - **batch** (*dict | tuple | list*): A batch of data.
+
+    **Returns:**
+
+    - **data** (*torch.Tensor | list*): Input data.
+    - **label** (*torch.Tensor | list*): Label data.
+    - **attribute** (*torch.Tensor | list*): Attribute data.
+    - **imgpath** (*list of str*): Image path.
+
+### ncdia.trainers.inctrainer.py
+
+#### IncTrainer
+
+IncTrainer class for incremental training.
+
+**Attributes:**
+
+- **sess_cfg** (*Configs*): Session configuration.
+- **num_sess** (*int*): Number of sessions.
+- **session** (*int*): Session number. If == 0, execute pre-training.
+    If > 0, execute incremental training.
+- **hist_trainset** (*MergedDataset*): Historical training dataset.
+- **hist_valset** (*MergedDataset*): Historical validation dataset.
+- **hist_testset** (*MergedDataset*): Historical testing dataset.
+
+**Methods:**
+
+- <span class="highlight-text">**  \_\_init\_\_(self, cfg=None, sess_cfg=None, ncd_cfg=None, session=0, model=None, hist_trainset=None, hist_testset=None, old_model=None, \*\*kwargs)**</span>
+
+    The constructor method that initializes an instance of **IncTrainer**. 
+
+    **Parameters:**
+
+    - **model** (*nn.Module*): Model to be trained.
+    - **cfg** (*dict*): Configuration for trainer.
+    - **sess_cfg** (*Configs*): Session configuration.
+    - **session** (*int*): Session number. Default: 0.
+
+- <span class="highlight-text">** train(self)**</span>
+
+    Incremental training. 
+
+    **self.num_sess** determines the number of sessions, and session number is stored in **self.session**.
+
+    **Returns:**
+
+    - **model** (*nn.Module*): Trained model.
+
+### ncdia.trainers.hooks
+
+Implements some of the commonly used hooks.
+
+#### Hook
+
+*ncdia.trainers.hooks.hook.py*
+
+Base hook class. All hooks should inherit from this class.
+
+#### AlgHook
+
+*ncdia.trainers.hooks.alghook.py*
+
+A hook to modify algorithm state in the pipeline. This class is a base class for all algorithm hooks.
+
+#### LoggerHook
+
+*ncdia.trainers.hooks.loggerhook.py*
+
+A hook to log information during training and evaluation.
+
+#### MetricHook
+
+*ncdia.trainers.hooks.metrichook.py*
+
+A hook to calculate metrics during evaluation and testing.
+
+#### ModelHook
+
+*ncdia.trainers.hooks.modelhook.py*
+
+A hook to change model state in the pipeline, such as setting device, changing model to eval mode, etc.
+
+#### NCDHook
+
+*ncdia.trainers.hooks.ncdhook.py*
+
+A hook to execute OOD and NCD detection to relabel data
+
+#### OptimizerHook
+
+*ncdia.trainers.hooks.optimizerhook.py*
+
+A hook to put optimizer to zero_grad and step during training.
+
+#### SchedulerHook
+
+*ncdia.trainers.hooks.schedulerhook.py*
+
+A hook to change learning rate during training.
+
+### ncdia.trainers.optims
+
+#### ncdia.trainers.optims.optimizer.py
+
+- <span class="highlight-text">**build_optimizer(type, model, param_groups=None, \*\*kwargs)**</span>
+
+    Build optimizer.
+
+    **Parameters:**
+
+    - **type** (*str*): type of optimizer
+    - **model** (*nn.Module | dict*): model or param_groups
+    - **param_groups** (*dict | None*): 
+        if provided, directly optimize param_groups and abandon model
+    - **kwargs** (*dict*): arguments for optimizer
+
+    **Returns:**
+
+    - **optimizer** (*torch.optim.Optimizer*): optimizer
+
+#### ncdia.trainers.optims.scheduler.py
+
+Implements some of the commonly used scheduler.
+
+- **CosineWarmupLR**
+- **LinearWarmupLR**
+- **ConstantLR**
+
+**Methods:**
+
+- <span class="highlight-text">**build_scheduler(type, optimizer, \*\*kwargs)**</span>
+
+    Build learning rate scheduler.
+
+    **Parameters:**
+
+    - **type** (*str*): type of scheduler
+    - **optimizer** (t*orch.optim.Optimizer*): optimizer
+    - **kwargs** (*dict*): arguments for scheduler
+
+    **Returns:**
+
+    - **lr_scheduler** (*torch.optim.lr_scheduler._LRScheduler*): learning rate scheduler
+
+### ncdia.trainers.priority
+
+Hook priority levels.
+
+#### Priority
+
+| Level        | Value  |
+| :------------| :------|
+| HIGHEST      | 0      |
+| VERY_HIGH    | 10     |
+| HIGH         | 30     |
+| ABOVE_NORMAL | 40     |
+| NORMAL       | 50     |
+| BELOW_NORMAL | 60     |
+| LOW          | 70     |
+| VERY_LOW     | 90     |
+| LOWEST       | 100    |
 
 ## ncdia.utils
